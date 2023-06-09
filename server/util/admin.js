@@ -1,11 +1,12 @@
-var admin = require("firebase-admin");
+const { initializeApp, cert } = require("firebase-admin/app");
+const { getFirestore } = require("firebase-admin/firestore");
 
-var serviceAccount = require("../../car-rental-7084a-firebase-adminsdk-yu1w0-dfb8acd7db.json");
+var serviceAccount = require("../../../car-rental-7084a-firebase-adminsdk-yu1w0-dfb8acd7db.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+initializeApp({
+  credential: cert(serviceAccount),
 });
 
-const db = admin.firestore();
+const db = getFirestore();
 
-module.exports = { admin, db };
+module.exports = { db };

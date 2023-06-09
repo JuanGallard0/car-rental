@@ -1,0 +1,11 @@
+@import "./base.scss";
+
+.form-wrap {
+  display: flex;
+  flex-direction: column;
+  margin: auto auto;
+  width: 70%;
+  @media (min-width: $lg) {
+    width: 50%;
+  }
+}
