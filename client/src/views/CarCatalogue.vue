@@ -4,6 +4,8 @@
   </div>
 </template>
 
+<style></style>
+
 <script>
 import CarCard from "@/components/CarCard.vue";
 

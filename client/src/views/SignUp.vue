@@ -1,5 +1,5 @@
 <template>
-  <div class="form-wrap">
+  <div class="auth-form-wrap">
     <md-field>
       <md-icon>account_circle</md-icon>
       <label>First Name</label>

@@ -2,7 +2,7 @@
   <div>
     <md-card md-with-hover>
       <md-ripple>
-        <div class="row">
+        <div class="flex">
           <md-card-media>
             <img :src="car.image_url" alt="Cover" />
           </md-card-media>
@@ -17,14 +17,29 @@
           </div>
         </div>
 
-        <md-card-content>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque
-          ea, nostrum odio. Dolores, sed accusantium quasi non.
+        <md-card-content class="flex card-content">
+          <div class="">
+            <div class="">
+              <md-icon>person</md-icon>
+              {{ car.seats }} seats
+            </div>
+            <div class="">
+              <md-icon>drive_eta</md-icon>
+              {{ car.transmission }}
+            </div>
+          </div>
+
+          <div class="price">
+            <div class="flex">
+              <md-icon>attach_money</md-icon>
+              <span class="">4</span>
+            </div>
+            <p>Per day</p>
+          </div>
         </md-card-content>
 
         <md-card-actions>
-          <md-button>Action</md-button>
-          <md-button>Action</md-button>
+          <md-button>view deal</md-button>
         </md-card-actions>
       </md-ripple>
     </md-card>
@@ -39,8 +54,19 @@
   vertical-align: top;
 }
 
-.row {
+.flex {
   display: flex;
+}
+
+.card-content {
+  justify-content: space-between;
+  .price {
+    font-weight: 700;
+
+    span {
+      font-size: 3em;
+    }
+  }
 }
 </style>
 
