@@ -39,12 +39,26 @@
         </md-card-content>
 
         <md-card-actions>
-          <md-button>view deal</md-button>
+          <md-button @click="viewDeal()">view deal</md-button>
         </md-card-actions>
       </md-ripple>
     </md-card>
   </div>
 </template>
+
+<script>
+export default {
+  name: "CarCard",
+
+  props: ["car"],
+
+  methods: {
+    viewDeal() {
+      this.$store.commit("setShowLoginModal", true);
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .md-card {
@@ -69,11 +83,3 @@
   }
 }
 </style>
-
-<script>
-export default {
-  name: "CarCard",
-
-  props: ["car"],
-};
-</script>

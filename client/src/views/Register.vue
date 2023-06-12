@@ -39,6 +39,7 @@
 
 <script>
 import { signUp } from "@/api/auth";
+import { getAuth, signInWithCustomToken } from "@firebase/auth";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -67,9 +68,9 @@ export default {
           first_name: this.firstName,
           last_name: this.lastName,
         };
-
         try {
-          await signUp(data);
+          const { token } = await signUp(data);
+          await signInWithCustomToken(getAuth(), token);
           this.$router.push({ name: "CarCatalogue" });
         } catch (error) {
           console.log(error);

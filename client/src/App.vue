@@ -17,7 +17,7 @@ export default {
 
   data() {
     return {
-      user: getAuth(),
+      user: getAuth().currentUser,
     };
   },
 
@@ -25,6 +25,10 @@ export default {
     return {
       user: computed(() => this.user),
     };
+  },
+
+  created() {
+    getAuth().onAuthStateChanged((user) => (this.user = user));
   },
 };
 </script>
