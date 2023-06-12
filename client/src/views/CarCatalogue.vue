@@ -4,10 +4,9 @@
   </div>
 </template>
 
-<style></style>
-
 <script>
 import CarCard from "@/components/CarCard.vue";
+import { getAllCars } from "@/api/cars";
 
 export default {
   name: "CarCatalogue",
@@ -25,9 +24,7 @@ export default {
   methods: {
     async getAllCars() {
       try {
-        const res = await fetch(`${process.env.VUE_APP_SERVER_URL}/cars`);
-        const json = await res.json();
-        this.cars = json;
+        this.cars = await getAllCars();
       } catch (error) {
         console.log(error);
       }
@@ -35,3 +32,5 @@ export default {
   },
 };
 </script>
+
+<style></style>

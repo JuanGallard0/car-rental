@@ -9,10 +9,10 @@
   </div>
 </template>
 
-<style lang="scss" scoped></style>
-
 <script>
 export default {
   name: "NavBar",
 };
 </script>
+
+<style lang="scss" scoped></style>

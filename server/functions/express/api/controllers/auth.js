@@ -8,10 +8,12 @@ const { getAuth: getAdminAuth } = require("firebase-admin/auth");
 const firestore = require("firebase-admin").firestore();
 
 async function register(req, res) {
-  const { email, password, secureNote } = req.body;
+  const { email, password, first_name, last_name } = req.body;
 
-  if (!secureNote) {
-    res.status(400).json({ error: { code: "no-secure-note" } });
+  if (!first_name || !last_name) {
+    res
+      .status(400)
+      .json({ error: { code: "first name or last name missing" } });
     return;
   }
 
@@ -26,7 +28,9 @@ async function register(req, res) {
 
     const token = await adminAuth.createCustomToken(credential.user.uid);
 
-    await firestore.doc(`users/${credential.user.uid}`).set({ secureNote });
+    await firestore
+      .doc(`users/${credential.user.uid}`)
+      .set({ first_name, last_name });
 
     res.status(201).json({ token });
   } catch (err) {
