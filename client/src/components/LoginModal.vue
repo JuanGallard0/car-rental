@@ -27,13 +27,16 @@
           <span v-show="hasMessages" class="md-error">{{ errorMsg }}</span>
         </div>
         <md-button class="md-primary" @click="closeDialog()">Close</md-button>
-        <md-button class="md-primary" @click="closeDialog()">Sign In</md-button>
+        <md-button class="md-primary" @click="login()">Sign In</md-button>
       </md-dialog-actions>
     </md-dialog>
   </div>
 </template>
 
 <script>
+import { signIn } from "@/api/auth";
+import { getAuth, signInWithCustomToken } from "@firebase/auth";
+
 export default {
   name: "LoginModal",
   data() {
@@ -57,6 +60,23 @@ export default {
     },
     closeDialog() {
       this.$store.commit("setShowLoginModal", false);
+    },
+    async login() {
+      try {
+        const data = {
+          email: this.email,
+          password: this.password,
+        };
+        console.log(data);
+        const { token } = await signIn(data);
+        await signInWithCustomToken(getAuth(), token);
+        this.closeDialog();
+      } catch (error) {
+        console.log(error);
+        this.errorMsg = error.response.data.error.code;
+        this.hasMessages = true;
+      }
+      this.hasMessages = true;
     },
   },
 };

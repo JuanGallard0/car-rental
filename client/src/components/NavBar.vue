@@ -31,6 +31,7 @@ export default {
     async signOut() {
       const auth = getAuth();
       await firebaseSignOut(auth);
+      this.$router.push({ name: "CarCatalogue" });
     },
   },
 };
