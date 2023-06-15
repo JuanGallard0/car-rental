@@ -3,7 +3,7 @@
     <md-card md-with-hover>
       <md-ripple>
         <div class="flex">
-          <md-card-media>
+          <md-card-media class="image">
             <img :src="car.image_url" alt="Cover" />
           </md-card-media>
 
@@ -32,14 +32,14 @@
           <div class="price">
             <div class="flex">
               <md-icon>attach_money</md-icon>
-              <span class="">4</span>
+              <span class="">{{ car.daily_price }}</span>
             </div>
             <p>Per day</p>
           </div>
         </md-card-content>
 
         <md-card-actions>
-          <md-button @click="viewDeal()">view deal</md-button>
+          <md-button @click="handleRentBtn(car.id)">Rent</md-button>
         </md-card-actions>
       </md-ripple>
     </md-card>
@@ -47,14 +47,36 @@
 </template>
 
 <script>
+import { updateAvailability } from "@/api/cars";
+import { createRental } from "@/api/rentals";
+import { getAuth } from "@firebase/auth";
+
 export default {
   name: "CarCard",
 
   props: ["car"],
 
   methods: {
-    viewDeal() {
-      this.$store.commit("setShowLoginModal", true);
+    async handleRentBtn(key) {
+      const user = getAuth().currentUser;
+      if (user) {
+        const newRental = {
+          userIdToken: await user.getIdToken(),
+          id_user: user.uid,
+          id_car: key,
+        };
+        const carToEdit = {
+          userIdToken: await user.getIdToken(),
+          id_car: key,
+          is_available: false,
+        };
+        createRental(newRental);
+        updateAvailability(carToEdit);
+        this.$router.push({ name: "CarCatalogue" });
+      } else {
+        this.$store.commit("setShowLoginModal", true);
+        return;
+      }
     },
   },
 };
@@ -63,13 +85,19 @@ export default {
 <style lang="scss" scoped>
 .md-card {
   width: 320px;
+  height: 250px;
   margin: 4px;
   display: inline-block;
   vertical-align: top;
+  margin: 1em;
 }
 
 .flex {
   display: flex;
+}
+
+img {
+  max-width: 170px;
 }
 
 .card-content {

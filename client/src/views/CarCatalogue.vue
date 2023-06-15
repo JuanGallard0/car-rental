@@ -3,8 +3,12 @@
     <LoginModal />
     <div class="catalogue-wrap">
       <h1>Available cars</h1>
-      <div class="">
-        <CarCard v-for="(car, index) in cars" :key="index" :car="car" />
+      <div class="row">
+        <CarCard
+          v-for="(car, index) in carsAvailable"
+          :key="index"
+          :car="car"
+        />
       </div>
     </div>
   </div>
@@ -22,6 +26,12 @@ export default {
 
   data() {
     return { cars: [] };
+  },
+
+  computed: {
+    carsAvailable: function () {
+      return this.cars.filter((i) => i.is_available == true);
+    },
   },
 
   created() {
@@ -45,13 +55,20 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 2em auto auto auto;
-  width: 70%;
+  width: 75%;
 
   h1 {
     margin: 1em;
   }
   .row {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media (min-width: $lg) {
+      justify-content: flex-start;
+    }
   }
 }
 </style>

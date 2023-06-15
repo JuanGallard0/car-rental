@@ -1,6 +1,6 @@
 <template>
   <div>
-    <md-dialog :md-active="showDialog">
+    <md-dialog :md-active="this.$store.state.showLoginModal">
       <md-dialog-title>Sign in to continue</md-dialog-title>
 
       <div class="auth-form-wrap">
@@ -48,10 +48,8 @@ export default {
     };
   },
 
-  computed: {
-    showDialog() {
-      return this.$store.state.showLoginModal;
-    },
+  created() {
+    this.$store.commit("setShowLoginModal", false);
   },
 
   methods: {

@@ -8,4 +8,19 @@ async function getAllCars() {
   const res = await axios.get(endpoint);
   return res.data;
 }
-export { getAllCars };
+
+async function updateAvailability({ userIdToken, id_car, is_available }) {
+  const endpoint = `${url}/updateavailability`;
+  const res = await axios.patch(
+    endpoint,
+    { id_car, is_available },
+    {
+      headers: {
+        Authorization: `Bearer ${userIdToken}`,
+      },
+    }
+  );
+  return res.data;
+}
+
+export { getAllCars, updateAvailability };

@@ -1,7 +1,25 @@
 <template>
   <div>
     <md-toolbar>
-      <h3 class="md-title" style="flex: 1">Car Rental</h3>
+      <h3 class="md-title" style="flex: 1">
+        <router-link
+          class="header"
+          :to="{ name: 'CarCatalogue' }"
+          style="color: black"
+          >Car Rental</router-link
+        >
+      </h3>
+      <div class="nav-links">
+        <ul>
+          <router-link
+            class="link header"
+            :to="{ name: 'CarCatalogue' }"
+            style="color: black"
+            >Catalogue</router-link
+          >
+        </ul>
+      </div>
+
       <md-button v-show="user" class="md-icon-button">
         <md-icon>account_circle</md-icon>
       </md-button>
@@ -37,4 +55,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.header {
+  text-decoration: none;
+}
+
+.header:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
